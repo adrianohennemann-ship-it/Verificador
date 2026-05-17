@@ -1,144 +1,72 @@
-# Verificador - Gerador de Provas com IA
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Provas Automático</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        #resultado { margin-top: 20px; white-space: pre-wrap; background: #e9ecef; padding: 15px; border-radius: 4px; display: none; }
+        .btn-print { background-color: #28a745; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
 
-Um aplicativo que ajuda professores a criar provas de forma rápida e eficiente utilizando inteligência artificial.
+<div class="container">
+    <h2>📝 Gerador de Provas</h2>
+    
+    <div class="form-group">
+        <label for="apiKey">Sua API Key do Gemini (Cole aqui):</label>
+        <input type="password" id="apiKey" placeholder="AIzaSy...">
+    </div>
+    <hr>
 
-## 🎯 Objetivo
+    <div class="form-group">
+        <label for="nomeEscola">Nome da Escola / Instituição:</label>
+        <input type="text" id="nomeEscola" placeholder="Ex: Colégio Machado de Assis">
+    </div>
+    <div class="form-group">
+        <label for="nomeProfessor">Nome do Professor(a):</label>
+        <input type="text" id="nomeProfessor" placeholder="Ex: Prof. Carlos Silva">
+    </div>
+    <div class="form-group">
+        <label for="assunto">Assunto Abordado:</label>
+        <input type="text" id="assunto" placeholder="Ex: Fotossíntese e Respiração Celular">
+    </div>
 
-Facilitar a criação de avaliações e provas personalizadas para diferentes disciplinas e níveis de dificuldade, economizando tempo dos professores.
+    <div class="form-group">
+        <label for="qtdQuestoes">Quantidade de Questões:</label>
+        <input type="number" id="qtdQuestoes" min="1" max="20" value="5">
+    </div>
+    <div class="form-group">
+        <label for="pesoQuestao">Peso / Valor de cada questão:</label>
+        <input type="number" id="pesoQuestao" step="0.1" value="2.0">
+    </div>
+    <div class="form-group">
+        <label for="tipoQuestao">Tipo de Questão:</label>
+        <select id="tipoQuestao">
+            <option value="objetiva">Objetiva (Múltipla Escolha: A, B, C, D, E)</option>
+            <option value="dissertativa">Dissertativa (Resposta Aberta)</option>
+        </select>
+    </div>
 
-## ✨ Recursos
+    <div class="form-group">
+        <label for="conteudoBase">Cole aqui o texto/conteúdo base para criar as questões:</label>
+        <textarea id="conteudoBase" rows="6" placeholder="Cole o texto de apoio, capítulos de livro ou anotações aqui..."></textarea>
+    </div>
 
-- ✅ Geração automática de questões com IA
-- ✅ Suporte a múltiplos formatos (múltipla escolha, discursivas, verdadeiro/falso)
-- ✅ Personalização por disciplina e nível escolar
-- ✅ Exportação de provas em PDF/Word
-- ✅ Banco de dados com questões criadas
-- ✅ Interface amigável e intuitiva
+    <button onclick="gerarProva()">Gerar Prova com IA</button>
+    <button class="btn-print" id="btnPrint" onclick="imprimirProva()">Imprimir Prova</button>
 
-## 🚀 Como Começar
+    <div id="resultado"></div>
+</div>
 
-### Pré-requisitos
-- Node.js 16+ OU Python 3.8+
-- Chave de API (OpenAI ou similar)
-- Git
-
-### Instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/adrianohennemann-ship-it/Verificador.git
-cd Verificador
-```
-
-2. Instale as dependências:
-```bash
-# Para Node.js
-npm install
-
-# Para Python
-pip install -r requirements.txt
-```
-
-3. Configure suas variáveis de ambiente:
-```bash
-cp .env.example .env
-# Edite o arquivo .env com sua chave de API
-```
-
-4. Inicie a aplicação:
-```bash
-# Node.js
-npm start
-
-# Python
-python app.py
-```
-
-5. Acesse em seu navegador:
-```
-http://localhost:3000
-```
-
-## 📋 Como Usar
-
-1. **Acesse o aplicativo** através do link web
-2. **Preencha os dados da prova:**
-   - Disciplina/Tema
-   - Número de questões
-   - Nível de dificuldade
-   - Tipo de questões
-3. **Clique em "Gerar Prova"**
-4. **Revise e customize** as questões geradas
-5. **Exporte** em PDF ou Word
-
-## 🏗️ Estrutura do Projeto
-
-```
-Verificador/
-├── README.md
-├── .env.example
-├── .gitignore
-├── public/
-│   ├── index.html
-│   ├── styles.css
-│   └── script.js
-├── src/
-│   ├── app.py (ou server.js)
-│   ├── config.py
-│   ├── ai_service.py
-│   └── db_service.py
-├── templates/
-│   └── index.html
-├── requirements.txt (ou package.json)
-└── docs/
-    └── API.md
-```
-
-## 🤖 Integração com IA
-
-O projeto utiliza a API da **OpenAI** para gerar questões automaticamente.
-
-### Configuração
-1. Obtenha uma chave API em [https://platform.openai.com/](https://platform.openai.com/)
-2. Adicione a chave no arquivo `.env`
-3. As questões são geradas em tempo real
-
-## 📝 Exemplos de Uso
-
-### Exemplo 1: Prova de Matemática
-- Disciplina: Matemática
-- Tema: Equações de 2º grau
-- Questões: 10
-- Tipo: Múltipla escolha
-- Nível: Ensino Médio
-
-### Exemplo 2: Prova de História
-- Disciplina: História
-- Tema: Revolução Francesa
-- Questões: 5
-- Tipo: Discursivas
-- Nível: Ensino Médio
-
-## 🔐 Segurança
-
-- Variáveis de ambiente protegidas
-- Validação de inputs
-- Autenticação para salvar provas (futuro)
-- HTTPS em produção
-
-## 📞 Suporte
-
-Para dúvidas ou sugestões, abra uma [Issue](https://github.com/adrianohennemann-ship-it/Verificador/issues)
-
-## 📄 Licença
-
-Este projeto está sob licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## 👨‍💻 Autores
-
-- **Adrian Hennemann** - Desenvolvedor
-
----
-
-**Versão:** 1.0.0  
-**Última atualização:** 2026-05-17
+<script src="script.js"></script>
+</body>
+</html>
