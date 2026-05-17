@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock - Multiple Time Zones</title>
+    <link rel="stylesheet" href="clock-styles.css">
+</head>
+<body>
+    <header>
+        <h1>🕐 World Clock</h1>
+        <p>Track time across multiple time zones in real-time</p>
+    </header>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="timezoneSelect">Add Time Zone</label>
+            <select id="timezoneSelect">
+                <option value="">+ Add Time Zone</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="searchInput">Search Time Zones</label>
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="e.g., Tokyo, London, New York..."
+            >
+        </div>
+
+        <button id="resetBtn">Reset to Default</button>
+    </div>
+
+    <div id="emptyState" class="empty-state">
+        <div class="empty-state-icon">🕰️</div>
+        <h2>No Time Zones Selected</h2>
+        <p>Add a time zone from the dropdown to get started!</p>
+    </div>
+
+    <div class="clock-grid" id="clockGrid"></div>
+
+    <script src="clock-script.js"></script>
+</body>
+</html>
